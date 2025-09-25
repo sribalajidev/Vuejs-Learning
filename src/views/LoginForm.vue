@@ -37,7 +37,6 @@
 
     // check credentials match - In a real-world scenario, the API call replaces the stored credentials check
     if(email.value == storedCredentials.email && password.value == storedCredentials.password) {
-      alert('Login Successful!');
       props.onSuccess(); // call the function passed from parent component to update login state - works like Callback Props in React
     }
     else {
