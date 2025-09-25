@@ -1,7 +1,7 @@
 # Install-vuejs
 This guide explains the system requirements, prerequisites, and steps to install and set up a Vue.js project on your machine.
 
-## 📋 Prerequisites
+## Prerequisites
 Before you begin, ensure the following:
 * Familiarity with the command line
 * Install Node.js version ^20.19.0 || >=22.12.0 (To check version of node, Run the following command "node -v")

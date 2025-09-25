@@ -11,6 +11,16 @@ export default defineConfig({
     vueDevTools(),
   ],
   base: '/Vuejs-Learning/',
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @use "@/assets/styles/_mixins.scss" as *; // Import stylesheets globally
+          @use "@/assets/styles/_variables.scss" as *; 
+        `
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
