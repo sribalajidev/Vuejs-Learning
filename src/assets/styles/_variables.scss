@@ -1,12 +1,34 @@
-// Color palette
-$white: #ffffff;
-$black: #000000;
-$gray-light: #f1f6fd;
-$gray-dark: #7f8c8d;
-$red: #ff0000;
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
-$text-color: #333;
+/* Default = Light Theme */
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --gray-light: #f1f6fd;
+  --gray-dark: #7f8c8d;
+  --red: #cd0000;
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --primary-bg: #e5e5e5;
+  --text-color: #333;
+  --text-hover: #000;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --filter-icon: invert(1);
+}
+
+/* Dark Theme overrides */
+[data-theme="dark"] {
+  --white: #000000; /* invert or adjust */
+  --black: #ffffff;
+  --gray-light: #111418;
+  --gray-dark: #95a5a6;
+  --red: #ff6b6b;
+  --primary-color: #2980b9;
+  --secondary-color: #27ae60;
+  --primary-bg: #141414;
+  --text-color: #f1f1f1;
+  --text-hover: #ddd;
+  --shadow-color: rgba(255, 255, 255, 0.5);
+  --filter-icon: invert(0);
+}
 
 // Font sizes
 $font-small: 12px;

@@ -40,7 +40,7 @@
       props.onSuccess(); // call the function passed from parent component to update login state - works like Callback Props in React
     }
     else {
-      loginError.value = "Invalid email or password";
+      loginError.value = "Invalid email or password. Credentials are 'user@mail.com' and 'password'";
     }
   }
 
@@ -76,13 +76,13 @@
     justify-content: center;
     height: 100vh;
     min-height: 600px;
-    background: $gray-light;
+    background: var(--gray-light);
     @include media-breakpoint-down($md) {
       padding: 20px;
     }
     .error-msg {
       font-size: 14px;
-      color: $red;
+      color: var(--red);
     }
     .form-wrapper {
       position: relative;
@@ -105,7 +105,7 @@
             outline: none;
           }
           &.error {
-            border-color: $red;
+            border-color: var(--red);
           }
         }
         .error-msg {

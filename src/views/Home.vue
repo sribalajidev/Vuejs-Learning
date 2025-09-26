@@ -1,6 +1,10 @@
 <script setup>
+// import components
+import Header from '../components/Header.vue';
+import ToDoList from '../components/ToDoList.vue';
 
 </script>
 <template>
-  <h1>Home Page</h1>
+  <Header></Header>
+  <ToDoList></ToDoList>
 </template>
