@@ -38,7 +38,10 @@ function markCompleted(taskId) {
 
 // function to delete a task
 function deleteTask(taskId) {
-  todos.value = todos.value.filter(t => t.id !== taskId)
+  let userConfirmed = confirm("Are you sure you want to delete this task?");
+  if (userConfirmed) {
+    todos.value = todos.value.filter(t => t.id !== taskId);
+  }
 }
 
 // Filter tasks based on search input
