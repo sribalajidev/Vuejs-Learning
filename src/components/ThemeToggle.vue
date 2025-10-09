@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 // import icons
 import sunIcon from '../assets/icons/sun.svg';
 import moonIcon from '../assets/icons/moon.svg';
@@ -7,13 +7,18 @@ import moonIcon from '../assets/icons/moon.svg';
 // theme state — default is light
 const theme = ref('light');
 
-// set body theme immediately (so it's set on load)
-document.body.dataset.theme = theme.value
+// check sessionStorage on load
+onMounted(() => {
+  const savedTheme = sessionStorage.getItem('theme')
+  if (savedTheme) theme.value = savedTheme
+  document.body.dataset.theme = theme.value
+})
 
 function toggleTheme() {
   // flip between light and dark
   theme.value = theme.value === 'light' ? 'dark' : 'light'
   document.body.dataset.theme = theme.value;
+  sessionStorage.setItem('theme', theme.value) // store theme in sessionStorage
 }
 
 </script>

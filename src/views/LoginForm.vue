@@ -1,49 +1,35 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
+  import axios from 'axios';
 
   const props = defineProps(['onSuccess']); // function passed from parent component
 
   const email = ref('');
   const password = ref('');
-  const emailError = ref('');
   const loginError = ref('');
 
-  // store credentials in one object
-  const storedCredentials = {
-    email: 'user@mail.com',
-    password: 'password'
-  }
+  // If user is already logged in in sessionStorage, call onSuccess immediately
+  onMounted(() => {
+    const user = sessionStorage.getItem('loggedInUser')
+    if (user) props.onSuccess()
+  })
 
-  function emailValidate() {
-    emailError.value = '';
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
-    // email validation
-    if(!email.value) {
-      emailError.value = 'Email is required';
-      return;
-    } else if(!emailRegex.test(email.value)) {
-      emailError.value = 'Enter a valid email';
-      return;
+  // Simple login function checking against JSON
+  async function onLogin() {
+    loginError.value = ''
+    try {
+      const { data: users } = await axios.get('https://fakestoreapi.com/users')
+      const user = users.find(u => u.email === email.value && u.password === password.value)
+      if (user) {
+        sessionStorage.setItem('loggedInUser', JSON.stringify(user)) // store user in session
+        props.onSuccess()  // call parent callback on success
+      } else {
+        loginError.value = "Invalid email or password"
+      }
+    } catch {
+      loginError.value = "Error fetching users"
     }
   }
-
-  function onLogin() {
-    // Resets login error message
-    loginError.value = '';
-
-    // check email validation
-    if(emailError.value) return;
-
-    // check credentials match - In a real-world scenario, the API call replaces the stored credentials check
-    if(email.value == storedCredentials.email && password.value == storedCredentials.password) {
-      props.onSuccess(); // call the function passed from parent component to update login state - works like Callback Props in React
-    }
-    else {
-      loginError.value = "Invalid email or password. Credentials are 'user@mail.com' and 'password'";
-    }
-  }
-
 </script>
 
 <template>

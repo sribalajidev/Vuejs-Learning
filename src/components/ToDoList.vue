@@ -101,7 +101,7 @@ const filteredTodos = computed(() => {
 <style scoped lang="scss">
 .todo-list-wrapper {
   position: relative;
-  padding: 40px;
+  padding: 40px 40px 120px 40px;
   .task-input {
     display: flex;
     gap: 10px;

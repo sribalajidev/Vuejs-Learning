@@ -1,10 +1,14 @@
 <script setup>
 // import components
 import Header from '../components/Header.vue';
-import ToDoList from '../components/ToDoList.vue';
+import ProductLists from '@/components/ProductLists.vue';
 
 </script>
 <template>
   <Header></Header>
-  <ToDoList></ToDoList>
+  <ProductLists></ProductLists>
 </template>
+
+
+<style scoped lang="scss">
+</style>
