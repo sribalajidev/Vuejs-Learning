@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
+import { useCart } from '@/store/cartStore.js';
+
+const { addToCart, cartItems } = useCart();
 
 const products = ref([]);
 const loading = ref(true);
@@ -33,6 +36,11 @@ const filteredProducts = computed(() => {
     return matchesSearch && matchesCategory;
   });
 });
+
+// check if product is already in cart
+function isAdded(productId) {
+  return cartItems.value.some(item => item.id === productId);
+}
 </script>
 
 <template>
@@ -51,8 +59,19 @@ const filteredProducts = computed(() => {
       <div v-for="product in filteredProducts" :key="product.id" class="product-card">
         <span class="tag">{{ product.category }}</span>
         <img :src="product.image" :alt="product.title" />
-        <h2>{{ product.title }}</h2>
-        <p><strong>Price:</strong> ${{ product.price }}</p>
+        <div class="item-info">
+          <h2>{{ product.title }}</h2>
+          <p><strong>Price:</strong> ${{ product.price }}</p>
+        </div>
+        <div class="cart-cta">
+          <button
+            class="btn btn-green"
+            :disabled="isAdded(product.id)"
+            @click="addToCart(product)"
+          >
+            {{ isAdded(product.id) ? 'Added' : 'Add to Cart' }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -85,6 +104,8 @@ const filteredProducts = computed(() => {
     gap: 30px;
     .product-card {
       position: relative;
+      display: flex;
+      flex-direction: column;
       border: 1px solid var(--gray-dark);
       padding: 20px;
       cursor: pointer;
@@ -110,6 +131,16 @@ const filteredProducts = computed(() => {
         font-size: 21px;
         font-weight: 600;
         margin: 15px 0;
+      }
+      .item-info {
+        margin-bottom: 8px;
+      }
+      .cart-cta {
+        text-align: center;
+        margin-top: auto;
+        .btn {
+          color: var(--black);
+        }
       }
     }
   }

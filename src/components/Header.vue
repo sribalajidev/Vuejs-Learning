@@ -1,10 +1,16 @@
 <script setup>
+import { ref } from 'vue';
 // import components
 import ThemeToggle from './ThemeToggle.vue';
-// import icons
-import cartIcon from '../assets/icons/cart.svg';
-import userIcon from '../assets/icons/user.svg';
+import { useCart } from '@/store/cartStore.js';
+import CartModal from './CartModal.vue';
 
+const { totalItems } = useCart();
+const showCart = ref(false);
+
+const toggleCart = () => {
+  showCart.value = !showCart.value;
+};
 </script>
 
 <template>
@@ -13,12 +19,16 @@ import userIcon from '../assets/icons/user.svg';
       <a class="navbar-brand" href="#">Vuejs Learning</a>
       <div class="navbar-action">
         <ul>
-          <li>My Cart</li>
+          <li @click="toggleCart" style="cursor:pointer">
+            My Cart <span v-if="totalItems">({{ totalItems }})</span>
+          </li>
         </ul>
         <ThemeToggle />
       </div>
     </nav>
   </header>
+
+  <CartModal v-if="showCart" @close="toggleCart" />
 </template>
 
 <style scoped lang="scss">
